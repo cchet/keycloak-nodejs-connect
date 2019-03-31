@@ -125,15 +125,21 @@ Config.prototype.configure = function configure (config) {
   this.authServerUrl = resolveValue(config['auth-server-url'] || config['server-url'] || config.serverUrl || config.authServerUrl);
 
   /**
+   * Authentication server backchannel URL
+   * @type {String}
+   */
+  this.authServerBackchannelUrl = resolveValue(config['auth-server-backchannel-url'] || config.authServerBackchannelUrl);
+
+  /**
    * Root realm URL.
    * @type {String}
    */
-  this.realmUrl = this.authServerUrl + '/realms/' + this.realm;
+  this.realmUrl = this.authServerBackchannelUrl || this.authServerUrl + '/realms/' + this.realm;
 
   /**
    * Root realm admin URL.
    * @type {String} */
-  this.realmAdminUrl = this.authServerUrl + '/admin/realms/' + this.realm;
+  this.realmAdminUrl = this.authServerBackchannelUrl || this.authServerUrl + '/admin/realms/' + this.realm;
 
   /**
    * How many minutes before retrying getting the keys.
